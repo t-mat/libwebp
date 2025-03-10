@@ -74,7 +74,7 @@ set /a _E+=1 && xcopy /y /i /q Changelog    !BUILD_CMAKE_DIR!\artifacts\
 set /a _E+=1 && xcopy /y /i /q COPYING      !BUILD_CMAKE_DIR!\artifacts\
 set /a _E+=1 && xcopy /y /i /q NEWS         !BUILD_CMAKE_DIR!\artifacts\
 set /a _E+=1 && xcopy /y /i /q README.md    !BUILD_CMAKE_DIR!\artifacts\
-set /a _E+=1 && echo !ZIP_URL!       > !BUILD_CMAKE_DIR!\artifacts\source-archive-url.txt
+set /a _E+=1 && git rev-parse HEAD        > !BUILD_CMAKE_DIR!\artifacts\commit-hash
 
 set /a _E+=1 && set "ARTIFACT_PATH=!BUILD_ROOT_DIR!\!BUILD_CMAKE_DIR!\artifacts"
 set /a _E+=1 && set "ARTIFACT_URL=file://!ARTIFACT_PATH:\=/!"
