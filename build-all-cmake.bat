@@ -23,6 +23,9 @@ set /a _E+=1 && cd /d "!BUILD_ROOT_DIR!" || goto :ERROR
 set /a _E+=1 && set "_CL_=/utf-8"
 set /a _E+=1 && set "MSBUILD_OPTS=/nologo /m /verbosity:minimal /consoleloggerparameters:ErrorsOnly"
 :
+: note: cmake 3.7 doesn't accept CMAKE_MSVC_RUNTIME_LIBRARY
+set /a _E+=1 && powershell -Command "(gc CMakeLists.txt) -replace 'VERSION 3.7', 'VERSION 3.17' | Out-File -encoding ASCII CMakeLists.txt"
+:
 set /a _E+=1 && echo Building static libwebp.lib, msvc runtime = x64_MultiThreaded_MT
 set /a _E+=1 && cmake -S . -B "!BUILD_CMAKE_DIR!" -DBUILD_SHARED_LIBS=OFF -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded            || goto :ERROR
 set /a _E+=1 && cmake --build "!BUILD_CMAKE_DIR!" --config RelWithDebInfo --clean-first --parallel -- !MSBUILD_OPTS!            || goto :ERROR
